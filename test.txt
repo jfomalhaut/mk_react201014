@@ -1,0 +1,13 @@
+클론하는 법.
+$ git clone [주소]
+
+push 하는 법
+1) $ git add .
+2) $ git commit -m "message"
+3) $ git push
+
+pull 하는 법
+$ git pull
+
+touch 파일명
+mkdir 폴더명
