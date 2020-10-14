@@ -1,0 +1,19 @@
+<html>
+<body>
+	<div id="root"></div>
+	<script>
+		var roots = document.getElementById('root');
+		
+		var test = test(2);
+		roots.innerHTML = test;
+		
+		function test(props) {
+			console.log(props);
+			return `
+				<h1>Hello, React</h1>
+			`;
+		}
+
+	</script>
+</body>
+</html>
