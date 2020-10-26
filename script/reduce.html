@@ -1,0 +1,13 @@
+<html>
+<body>
+	<script>
+		const data = "18:00 ~ 20:00@@@수업시작###20:00 ~ 22:00@@@개인시간###22:00 ~ 06:00@@@수면시간";
+		const arr = data.split('###');
+		const newArr = arr.reduce((acc, cur, index) => {
+			const result = cur.split('@@@');
+			return acc.concat({ time: result[0], content: result[1] });
+		}, []);
+		console.log(newArr);
+	</script>
+</body>
+</html>
