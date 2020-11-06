@@ -44,6 +44,7 @@ const Phonebook = () => {
 				return item;
 			}
 		});
+		const newList2 = list.map((item, index) => index === idx ? ({ ...item, vote: item.vote + 1 }) : item);
 		setLsit(newList);
 	};
 
