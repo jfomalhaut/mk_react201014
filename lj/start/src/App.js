@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Link, Redirect, Route, Switch } from 'react-router-dom';
-import { Page1, Page2, Phonebook } from './routers';
+import { List, Page1, Page2, Phonebook } from './routers';
 
 const App = () => {
 	return (
@@ -16,12 +16,16 @@ const App = () => {
 					<li>
 						<Link to="/phonebook">Phonebook</Link>
 					</li>
+					<li>
+						<Link to="/list">List</Link>
+					</li>
 				</ul>
 			</header>
 			<Switch>
 				{/* page1 == props가 나옴 */}
 				<Route path="/page1/:lolname" component={Page1} />
-				<Route paht="phonebook" component={Phonebook} />
+				<Route paht="/phonebook" component={Phonebook} />
+				<Route paht="/list" component={List} />
 
 				{/* page 2 == 아무것도 안나옴 */}
 				<Route path="/page2" render={(props) => (
