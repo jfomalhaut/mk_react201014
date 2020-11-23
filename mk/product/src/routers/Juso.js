@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from "axios";
 
 const JUSO_API = process.env.JUSO_API;
 const JUSO_URL = process.env.JUSO_URL;
+const VIEW = 10;
 
 const Juso = () => {
   const [keyword, setKeyword] = useState("");
+  const [keyword2, setKeyword2] = useState("");
   const [total, setTotal] = useState(0);
   const [jusoList, setJuso] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,15 +22,15 @@ const Juso = () => {
 
   const getJuso = (ev) => {
     ev.preventDefault();
-    search();
+    setKeyword2(keyword);
   };
 
   const search = () => {
     const _payload = {
       confmKey: JUSO_API,
       currentPage,
-      countPerPage: 10,
-      keyword,
+      countPerPage: VIEW,
+      keyword: keyword2,
       resultType: "json",
     };
 
@@ -54,30 +56,46 @@ const Juso = () => {
   };
 
   const nextPage = () => {
-    const newState = 1;
-    console.log(newState);
-    setCurrentPage(newState+1);
-    search();
+    setCurrentPage(currentPage + 1);
   };
 
   const backPage = () => {
     setCurrentPage(currentPage - 1);
-    console.log(currentPage);
-    search();
   };
+
+  useEffect(()=> {
+    if(keyword2 !== "") {
+      search();
+    }
+  },[currentPage]);
+  
+  useEffect(()=> {
+    if(keyword2 !== "") {
+      if (currentPage === 1) {
+        search();
+      } else {
+        setCurrentPage(1);
+      }
+    }
+  },[keyword2]);
 
   return (
     <form onSubmit={getJuso}>
       <input value={keyword} onChange={(ev) => setKeyword(ev.target.value)} />
       <button>검색</button>
       <h1>총 {total}개의 검색결과</h1>
+      <h1>currentPage{currentPage}</h1>
       <ul>
         {jusoList.map((item) => (
           <li>{item.roadAddrPart1}</li>
         ))}
       </ul>
       <button onClick={backPage}>이전</button>
-      <button onClick={nextPage}>다음</button>
+      {
+        currentPage < total/VIEW && (
+          <button onClick={nextPage}>다음</button>
+        )
+      }
     </form>
   );
 };

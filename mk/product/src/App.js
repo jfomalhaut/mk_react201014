@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch, Link } from 'react-router-dom';
 import { Juso, Product } from './routers';
+import Reducer from './routers/Reducer';
+import Scroll from './routers/Scroll';
 
 export default () => {
     return (
@@ -14,6 +16,8 @@ export default () => {
             <Switch>
                 <Route path="/product/:category" component={Product} />
                 <Route path="/juso" component={Juso} />
+                <Route path="/scroll" component={Scroll} />
+                <Route path="/reducer" component={Reducer} />
                 <Redirect to="/juso" />
             </Switch>
         </BrowserRouter>
