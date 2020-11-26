@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Data from '../jsons/items.json';
 
-console.log(Data);
-
 const Product = ({ history ,match: { params: { category } } }) => {
     const [items, setItems] = useState([]);
 
