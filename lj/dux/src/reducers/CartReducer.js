@@ -8,7 +8,7 @@ const initialState = {
 const CartReducer = (state = initialState, action) => {
 	switch(action.type) {
 		case CartAction.ADD_ITEM: {
-			return state;
+			return { ...state, cart: [...state.cart, action.item] };
 		}
 		case CartAction.REMOVE_ITEM: {
 			return state;
