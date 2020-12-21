@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-import Axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthAction } from '../actions';
 
 const Signin = () => {
+	const dispatch = useDispatch();
 	const [info, setInfo] = useState({ username: '', password: '' });
 	const { username, password } = info;
 
+	const failure = useSelector(({ AuthReducer }) => AuthReducer.failure);
+
 	const signin = (ev) => {
 		ev.preventDefault();
-		console.log(info);
-		Axios.post('http://localhost:4000/signin', info).then(res => {
-			console.log(res);
-		}).catch(error => {
-			console.log(error);
-		});
+		dispatch(AuthAction.login(info));
 	};
 	
 	const onChangeValue = (ev) => {
@@ -23,6 +22,14 @@ const Signin = () => {
 		});
 	};
 
+	useEffect(() => {
+		console.log('실패횟수: ', failure);
+		setInfo({
+			...info,
+			password: ''
+		});
+	}, [failure]);
+
 	return (
 		<form onSubmit={signin}>
 			<div>
@@ -32,6 +39,9 @@ const Signin = () => {
 				<input placeholder="insert password.." value={password} type="password" name="password" onChange={onChangeValue} />
 			</div>
 			<button>로그인</button>
+			{failure > 0 && (
+				<p style={{ color: '#ff0000'}}>*실패! 아이디와 비밀번호를 확인해주세요, 실패횟수: {failure}</p>
+			)}
 		</form>
 	);
 };
