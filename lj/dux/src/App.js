@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Link, Redirect, Route, Switch } from 'react-router-dom';
-import { List, Detail, Cart } from './routers';
+import { List, Detail, Cart, Signin } from './routers';
 
 const App = () => {
 	return (
@@ -20,7 +20,8 @@ const App = () => {
 				<Route path="/list" component={List} />
 				<Route path="/detail" component={Detail} />
 				<Route path="/cart" component={Cart} />
-				<Redirect to="/list" />
+				<Route path="/signin" component={Signin} />
+				<Redirect to="/signin" />
 			</Switch>
 		</BrowserRouter>
 	);
